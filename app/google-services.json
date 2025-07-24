@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "810974362111",
+    "firebase_url": "https://plant-store-b45cb-default-rtdb.firebaseio.com",
+    "project_id": "plant-store-b45cb",
+    "storage_bucket": "plant-store-b45cb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810974362111:android:84279fcd09339f7ac24fca",
+        "android_client_info": {
+          "package_name": "com.example.plantstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4BVAEbhuK5cihO7qGPw9Fkimf-FZgpm4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
