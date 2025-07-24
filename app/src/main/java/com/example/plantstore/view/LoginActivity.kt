@@ -263,7 +263,11 @@ fun LoginBody() {
                     Text("Remember me")
                 }
 
-                Text("Forget Password?")
+                Text("Forget Password?",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                    )
+                )
             }
 
             Button(
@@ -306,12 +310,20 @@ fun LoginBody() {
                     contentColor = Color.Black
                 )
             ) {
-                Text("Login")
+                Text("Login",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                )
             }
             Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 "Don't have an account, Signup",
+                style = TextStyle(
+                    fontSize = 15.sp,
+                ),
                 modifier = Modifier.clickable {
                     val intent = Intent(context, RegistrationActivity::class.java)
                     context.startActivity(intent)
