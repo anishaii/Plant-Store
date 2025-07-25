@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -57,6 +58,9 @@ import com.example.plantstore.model.UserModel
 import com.example.plantstore.repository.UserRepositoryImpl
 import com.example.plantstore.viewmodel.UserViewModel
 import com.example.plantstore.R
+import com.example.plantstore.repository.AuthRepositoryImpl
+import com.example.plantstore.viewmodel.AuthViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,8 +76,12 @@ class RegistrationActivity : ComponentActivity() {
 
 @Composable
 fun RegBody(innerPaddingValues: PaddingValues) {
-    val repo = remember { UserRepositoryImpl() }
-    val userViewModel = remember { UserViewModel(repo) }
+    val repo = remember { AuthRepositoryImpl(FirebaseAuth.getInstance()) }
+    val authViewModel = remember { AuthViewModel(repo) }
+
+    val userRepo = remember { UserRepositoryImpl() }
+    val userViewModel = remember { UserViewModel(userRepo) }
+
 
     val context = LocalContext.current
     val activity= context as? Activity
@@ -133,7 +141,7 @@ fun RegBody(innerPaddingValues: PaddingValues) {
                 placeholder = {
                     Text("Firstname")
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).testTag("firstname")
             )
             Spacer(modifier = Modifier.width(10.dp))
             OutlinedTextField(
@@ -144,7 +152,7 @@ fun RegBody(innerPaddingValues: PaddingValues) {
                 placeholder = {
                     Text("Lastname")
                 },
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).testTag("lastname")
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -156,7 +164,7 @@ fun RegBody(innerPaddingValues: PaddingValues) {
             placeholder = {
                 Text("abc@gmail.com")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag("email")
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -172,7 +180,8 @@ fun RegBody(innerPaddingValues: PaddingValues) {
                         // capture the size of the TextField
                         textFieldSize = coordinates.size.toSize()
                     }
-                    .clickable { expanded = true },
+                    .clickable { expanded = true }
+                    .testTag("country"),
                 placeholder = { Text("Select Country") },
                 enabled = false, // prevent manual typing
                 colors = TextFieldDefaults.colors(
@@ -214,32 +223,32 @@ fun RegBody(innerPaddingValues: PaddingValues) {
             placeholder = {
                 Text("*******")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().testTag("password")
         )
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
-//            userViewModel.register(email,password){
-//                success, message, userId ->
-//                if(success){
-//                    var userModel = UserModel(userId,email,firstName,lastname, "Male",
-//                        "9851009530",selectedOptionText
-//                    )
-//                    userViewModel.addUserToDatabase(userId,userModel){
-//                        success , message ->
-//                        if (success){
-//                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-//                        }else {
-//                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-//                        }
-//
-//                    }
-//                }else{
-//                    Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-//                }
-//            }
+            authViewModel.register(email,password){
+                success, message, userId ->
+                if(success){
+                    var userModel = UserModel(userId,email,firstName,lastname, "Male",
+                        "9851009530",selectedOptionText
+                    )
+                    userViewModel.addUserToDatabase(userId,userModel){
+                        success , message ->
+                        if (success){
+                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                        }else {
+                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                        }
+
+                    }
+                }else{
+                    Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+                }
+            }
         },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag("registerBtn"),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(0xFFCBE8C5),
                 contentColor = Color.Black
