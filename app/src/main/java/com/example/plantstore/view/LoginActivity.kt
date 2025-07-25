@@ -46,6 +46,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -57,8 +58,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.plantstore.R
+import com.example.plantstore.repository.AuthRepository
+import com.example.plantstore.repository.AuthRepositoryImpl
 import com.example.plantstore.repository.UserRepositoryImpl
+import com.example.plantstore.viewmodel.AuthViewModel
 import com.example.plantstore.viewmodel.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
@@ -75,8 +80,8 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginBody() {
 //    var counter : Int = 0
-    val repo = remember { UserRepositoryImpl() }
-    val userViewModel = remember { UserViewModel(repo) }
+    val repo = remember { AuthRepositoryImpl(FirebaseAuth.getInstance()) }
+    val authViewModel = remember { AuthViewModel(repo) }
 
     val context = LocalContext.current
     val activity = context as Activity
@@ -182,7 +187,7 @@ fun LoginBody() {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
+                    .padding(horizontal = 15.dp).testTag("email"),
                 placeholder = {
                     Text(text = "Enter email")
                 },
@@ -210,7 +215,7 @@ fun LoginBody() {
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 15.dp),
+                    .padding(horizontal = 15.dp).testTag("password"),
                 placeholder = {
                     Text(text = "Enter password")
                 },
@@ -278,18 +283,18 @@ fun LoginBody() {
 
             Button(
                 onClick = {
-//                    userViewModel.login(email, password) { success, message ->
-//                        if (success) {
-//                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-//
-//                            val intent = Intent(context, NavigationActivity::class.java)
-//                            context.startActivity(intent)
-//                            activity?.finish()
-//                        } else {
-//                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-//
-//                        }
-//                    }
+                    authViewModel.login(email, password) { success, message ->
+                        if (success) {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+
+                            val intent = Intent(context, NavigationActivity::class.java)
+                            context.startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+
+                        }
+                    }
 
 //                    if (email == "ram@gmail.com"
 //                        && password == "password"
@@ -322,7 +327,7 @@ fun LoginBody() {
 //                    }
                 }, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 20.dp).testTag("submit"),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFFCBE8C5),
