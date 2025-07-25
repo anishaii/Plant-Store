@@ -9,20 +9,20 @@ import androidx.lifecycle.LiveData
 
 
 class UserViewModel(val repo: UserRepo): ViewModel() {
-    fun login(
-        email: String, password: String,
-        callback: (Boolean, String) -> Unit
-    ){
-        repo.login(email,password,callback)
-    }
-
-    //authentication function
-    fun register(
-        email: String, password: String,
-        callback: (Boolean, String, String) -> Unit
-    ){
-        repo.register(email, password, callback)
-    }
+//    fun login(
+//        email: String, password: String,
+//        callback: (Boolean, String) -> Unit
+//    ){
+//        repo.login(email,password,callback)
+//    }
+//
+//    //authentication function
+//    fun register(
+//        email: String, password: String,
+//        callback: (Boolean, String, String) -> Unit
+//    ){
+//        repo.register(email, password, callback)
+//    }
 
     //database function
     fun addUserToDatabase(

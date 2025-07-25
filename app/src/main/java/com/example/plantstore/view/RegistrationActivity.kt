@@ -219,25 +219,25 @@ fun RegBody(innerPaddingValues: PaddingValues) {
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
-            userViewModel.register(email,password){
-                success, message, userId ->
-                if(success){
-                    var userModel = UserModel(userId,email,firstName,lastname, "Male",
-                        "9851009530",selectedOptionText
-                    )
-                    userViewModel.addUserToDatabase(userId,userModel){
-                        success , message ->
-                        if (success){
-                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-                        }else {
-                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-                        }
-
-                    }
-                }else{
-                    Toast.makeText(context,message, Toast.LENGTH_LONG).show()
-                }
-            }
+//            userViewModel.register(email,password){
+//                success, message, userId ->
+//                if(success){
+//                    var userModel = UserModel(userId,email,firstName,lastname, "Male",
+//                        "9851009530",selectedOptionText
+//                    )
+//                    userViewModel.addUserToDatabase(userId,userModel){
+//                        success , message ->
+//                        if (success){
+//                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+//                        }else {
+//                            Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+//                        }
+//
+//                    }
+//                }else{
+//                    Toast.makeText(context,message, Toast.LENGTH_LONG).show()
+//                }
+//            }
         },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(

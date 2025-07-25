@@ -15,36 +15,7 @@ class UserRepositoryImpl :  UserRepo {
     val database : FirebaseDatabase = FirebaseDatabase.getInstance()
     val ref: DatabaseReference = database.reference.child("users")
 
-    override fun login(
-        email: String,
-        password: String,
-        callback: (Boolean, String) -> Unit
-    ) {
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if(it.isSuccessful){
-                    callback(true,"Login successfully")
-            }else{
-                callback(false,"${it.exception?.message}")
-            }
-            }
-    }
 
-    override fun register(
-        email: String,
-        password: String,
-        callback: (Boolean, String, String) -> Unit
-    ) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener {
-                if(it.isSuccessful){
-                    callback(true,"Registered successfully",
-                        "${auth.currentUser?.uid}")
-                }else{
-                    callback(false,"${it.exception?.message}","")
-                }
-            }
-    }
 //create
     override fun addUserToDatabase(
         userId: String,

@@ -278,18 +278,18 @@ fun LoginBody() {
 
             Button(
                 onClick = {
-                    userViewModel.login(email, password) { success, message ->
-                        if (success) {
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-
-                            val intent = Intent(context, NavigationActivity::class.java)
-                            context.startActivity(intent)
-                            activity?.finish()
-                        } else {
-                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-
-                        }
-                    }
+//                    userViewModel.login(email, password) { success, message ->
+//                        if (success) {
+//                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+//
+//                            val intent = Intent(context, NavigationActivity::class.java)
+//                            context.startActivity(intent)
+//                            activity?.finish()
+//                        } else {
+//                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+//
+//                        }
+//                    }
 
 //                    if (email == "ram@gmail.com"
 //                        && password == "password"
