@@ -65,5 +65,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.lottie.compose.v610)
+    testImplementation("org.mockito:mockito-core:5.6.0")
 
 }

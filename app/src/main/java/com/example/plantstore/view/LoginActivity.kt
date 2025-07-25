@@ -57,6 +57,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.plantstore.R
+import com.example.plantstore.repository.UserRepositoryImpl
+import com.example.plantstore.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
 class LoginActivity : ComponentActivity() {
@@ -73,6 +75,11 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginBody() {
 //    var counter : Int = 0
+    val repo = remember { UserRepositoryImpl() }
+    val userViewModel = remember { UserViewModel(repo) }
+
+    val context = LocalContext.current
+    val activity = context as Activity
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -80,8 +87,7 @@ fun LoginBody() {
     var rememberMe by remember { mutableStateOf(false) }
 
 
-    val context = LocalContext.current
-    val activity = context as Activity
+
 
 
     val sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
@@ -272,35 +278,48 @@ fun LoginBody() {
 
             Button(
                 onClick = {
-                    if (email == "ram@gmail.com"
-                        && password == "password"
-                    ) {
+                    userViewModel.login(email, password) { success, message ->
+                        if (success) {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-                        if(rememberMe){
-                            editor.putString("email",email)
-                            editor.putString("password",password)
-                            editor.apply()
-                        }
-                        val intent = Intent(context, NavigationActivity ()::class.java)
+                            val intent = Intent(context, NavigationActivity::class.java)
+                            context.startActivity(intent)
+                            activity?.finish()
+                        } else {
+                            Toast.makeText(context, message, Toast.LENGTH_LONG).show()
 
-                        //to pass data to another activity
-                        intent.putExtra("email",email)
-                        intent.putExtra("password",password)
-
-                        context.startActivity(intent)
-
-                        activity.finish()
-
-                        Toast.makeText(
-                            context, "Login success",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        //snackbar
-                        couroutineScope.launch {
-                            snackbarHostState.showSnackbar("Invalid login")
                         }
                     }
+
+//                    if (email == "ram@gmail.com"
+//                        && password == "password"
+//                    ) {
+//
+//                        if(rememberMe){
+//                            editor.putString("email",email)
+//                            editor.putString("password",password)
+//                            editor.apply()
+//                        }
+//                        val intent = Intent(context, NavigationActivity ()::class.java)
+//
+//                        //to pass data to another activity
+//                        intent.putExtra("email",email)
+//                        intent.putExtra("password",password)
+//
+//                        context.startActivity(intent)
+//
+//                        activity.finish()
+//
+//                        Toast.makeText(
+//                            context, "Login success",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                    } else {
+//                        //snackbar
+//                        couroutineScope.launch {
+//                            snackbarHostState.showSnackbar("Invalid login")
+//                        }
+//                    }
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp),
