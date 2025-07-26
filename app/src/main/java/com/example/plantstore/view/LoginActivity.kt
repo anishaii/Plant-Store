@@ -274,10 +274,13 @@ fun LoginBody() {
                     Text("Remember me")
                 }
 
-                Text("Forget Password?",
-                    style = TextStyle(
-                        fontSize = 14.sp,
-                    )
+                Text(
+                    "Forget Password?",
+                    style = TextStyle(fontSize = 14.sp),
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, ForgetPasswordActivity::class.java)
+                        context.startActivity(intent)
+                    }
                 )
             }
 

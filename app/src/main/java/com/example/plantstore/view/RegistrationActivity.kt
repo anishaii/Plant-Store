@@ -152,7 +152,8 @@ fun RegBody(innerPaddingValues: PaddingValues) {
                 placeholder = {
                     Text("Lastname")
                 },
-                modifier = Modifier.weight(1f).testTag("lastname")
+                modifier = Modifier.weight(1f).testTag("lastname"),
+
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
