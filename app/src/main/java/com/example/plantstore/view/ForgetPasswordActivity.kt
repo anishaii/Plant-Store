@@ -35,6 +35,13 @@ import com.example.plantstore.R
 import com.example.plantstore.repository.UserRepositoryImpl
 import com.example.plantstore.viewmodel.UserViewModel
 import androidx.compose.ui.graphics.Color
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.clickable
+import android.content.Intent
+import androidx.compose.foundation.layout.width
+import androidx.compose.ui.Alignment
+
 
 class ForgetPasswordActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,6 +131,12 @@ fun forgetBody() {
             ) {
                 Text("Submit")
             }
+            Spacer(modifier = Modifier.height(30.dp))
+
+
+
+
+
         }
     }
 }

@@ -10,4 +10,5 @@
     <string name="title_activity_dashboard">DashboardActivity</string>
     <string name="title_activity_update_product">UpdateProductActivity</string>
     <string name="title_activity_moneytree">MoneytreeActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
